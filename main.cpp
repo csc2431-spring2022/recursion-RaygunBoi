@@ -4,7 +4,7 @@
 using std::cout;
 using std::endl;
 using std::cerr;
-using std::stringstream ;
+using std::stringstream;
 using std::string;
 using std::ostream;
 
@@ -75,7 +75,7 @@ int main() {
 	stringstream out;
 	for (int i = 0; i < TESTS; ++i) {
 		out.clear();
-		out.str("") ;
+		out.str("");
 		PrintReverseString(strings[i], out);
 		if (out.str() == reverses[i])
 			cout << "\tPassed " << ++passed << " tests" << endl;
@@ -85,14 +85,57 @@ int main() {
 }
 
 unsigned long long int Fibonacci(unsigned int n){
-	return 0;
+	if(n == 0 || n == 1) {
+        return n;
+    }
+    else {
+        return Fibonacci(n - 1) + Fibonacci(n - 2);
+    }
 }
+
 void PrintReverseString(const string& str, ostream& output){
+    if(str.length() <= 1) {
+        output << str;
+    }
+    else {
+        string outputS = str;
+        output << outputS[str.length() - 1];
+        outputS.resize(outputS.length() - 1);
+
+        PrintReverseString(outputS, output);
+    }
 }
+
 // You may change the parameters of these functions
 size_t MinimumPosition(const int array[], size_t size){
-	return 0;
-}
-void SelectionSort(int array[], size_t size){
+    if(size <= 1) {
+        return 0;
+    }
 
+    int smallest = MinimumPosition(array + 1, size - 1) + 1;
+
+    if(array[0] < array[smallest]) {
+        return 0;
+    }
+    else {
+        return smallest;
+    }
+}
+
+void SelectionSort(int array[], size_t size){
+    int maxIndex = 0;
+    int temp;
+    int index;
+    for (index = maxIndex; index < size; index++) {
+        if (array[index] > array[maxIndex]) {
+            maxIndex = index;
+        }
+    }
+    temp = array[size-1];
+    array[size-1] = array[maxIndex];
+    array[maxIndex] = temp;
+
+    if (size > 1) {
+        SelectionSort(array, --size );
+    }
 }
